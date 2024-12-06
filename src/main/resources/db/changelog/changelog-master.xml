@@ -90,4 +90,60 @@
             <column name="author_id" value="2"/>
         </insert>
     </changeSet>
+
+
+    <!-- Insert a new book -->
+    <changeSet id="1733334000004-1" author="prog5">
+        <insert tableName="book">
+            <column name="id" value="3"/>
+            <column name="title" value="Design Patterns"/>
+            <column name="isbn" value="978-0201633610"/>
+        </insert>
+    </changeSet>
+
+    <!-- Insert new authors -->
+    <changeSet id="1733334000005-1" author="prog5">
+        <insert tableName="author">
+            <column name="id" value="3"/>
+            <column name="name" value="Erich Gamma"/>
+        </insert>
+        <insert tableName="author">
+            <column name="id" value="4"/>
+            <column name="name" value="Richard Helm"/>
+        </insert>
+        <insert tableName="author">
+            <column name="id" value="5"/>
+            <column name="name" value="Ralph Johnson"/>
+        </insert>
+        <insert tableName="author">
+            <column name="id" value="6"/>
+            <column name="name" value="John Vlissides"/>
+        </insert>
+    </changeSet>
+
+    <!-- Associate the book with multiple authors -->
+    <changeSet id="1733334000006-1" author="prog5">
+        <insert tableName="book_author">
+            <column name="id" value="3"/>
+            <column name="book_id" value="3"/>
+            <column name="author_id" value="3"/>
+        </insert>
+        <insert tableName="book_author">
+            <column name="id" value="4"/>
+            <column name="book_id" value="3"/>
+            <column name="author_id" value="4"/>
+        </insert>
+        <insert tableName="book_author">
+            <column name="id" value="5"/>
+            <column name="book_id" value="3"/>
+            <column name="author_id" value="5"/>
+        </insert>
+        <insert tableName="book_author">
+            <column name="id" value="6"/>
+            <column name="book_id" value="3"/>
+            <column name="author_id" value="6"/>
+        </insert>
+    </changeSet>
+
+
 </databaseChangeLog>
