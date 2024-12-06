@@ -1,0 +1,13 @@
+package hu.pte.mik.probazh.service.mapping;
+
+import java.util.List;
+
+public interface GenericMapper<E, D> {
+    D toDTO(E entity);
+
+    E toEntity(D dto);
+
+    List<D> toDTOs(List<E> entities);
+
+    List<E> toEntities(List<D> dtos);
+}

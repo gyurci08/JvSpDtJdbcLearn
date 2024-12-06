@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1733333033219-1" author="prog5">
+        <createTable tableName="book">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="title" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="isbn" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1733333529267-1" author="prog5">
+        <createTable tableName="author">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1733333549064-1" author="prog5">
+        <createTable tableName="book_author">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true"/>
+            </column>
+
+            <column name="book_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_book_author_book_id" referencedTableName="book"
+                             referencedColumnNames="id"/>
+            </column>
+
+            <column name="author_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_book_author_author_id" referencedTableName="author"
+                             referencedColumnNames="id"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <!-- Sample data for the book table -->
+    <changeSet id="1733334000001-1" author="prog5">
+        <insert tableName="book">
+            <column name="id" value="1"/>
+            <column name="title" value="Effective Java"/>
+            <column name="isbn" value="978-0134685991"/>
+        </insert>
+        <insert tableName="book">
+            <column name="id" value="2"/>
+            <column name="title" value="Clean Code"/>
+            <column name="isbn" value="978-0132350884"/>
+        </insert>
+    </changeSet>
+
+    <!-- Sample data for the author table -->
+    <changeSet id="1733334000002-1" author="prog5">
+        <insert tableName="author">
+            <column name="id" value="1"/>
+            <column name="name" value="Joshua Bloch"/>
+        </insert>
+        <insert tableName="author">
+            <column name="id" value="2"/>
+            <column name="name" value="Robert C. Martin"/>
+        </insert>
+    </changeSet>
+
+    <!-- Sample data for the book_author table -->
+    <changeSet id="1733334000003-1" author="prog5">
+        <insert tableName="book_author">
+            <column name="id" value="1"/>
+            <column name="book_id" value="1"/>
+            <column name="author_id" value="1"/>
+        </insert>
+        <insert tableName="book_author">
+            <column name="id" value="2"/>
+            <column name="book_id" value="2"/>
+            <column name="author_id" value="2"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
