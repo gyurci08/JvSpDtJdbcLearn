@@ -22,6 +22,18 @@ public class BookService {
     private final AuthorRepository authorRepository;
     private final BookMapper bookMapper;
 
+
+    private List<AuthorDTO> mapAuthors(Book book) {
+        return book.getAuthors().stream()
+                .map(ba -> {
+                    Author author = authorRepository.findById(ba.getAuthorId())
+                            .orElseThrow(() -> new RuntimeException("Author not found!"));
+                    return new AuthorDTO(author.getId(), author.getName());
+                })
+                .collect(Collectors.toList());
+    }
+
+
     public List<BookDTO> listAllBooks() {
         return bookRepository.findAll()
                 .stream()
@@ -32,14 +44,14 @@ public class BookService {
                 .collect(Collectors.toList());
     }
 
-    private List<AuthorDTO> mapAuthors(Book book) {
-        return book.getAuthors().stream()
-                .map(ba -> {
-                    Author author = authorRepository.findById(ba.getAuthorId())
-                            .orElseThrow(() -> new RuntimeException("Author not found!"));
-                    return new AuthorDTO(author.getId(), author.getName());
+
+    public BookDTO getBookById(Long id) {
+        return bookRepository.findById(id)
+                .map(book -> {
+                    List<AuthorDTO> authors = mapAuthors(book);
+                    return bookMapper.toDTO(book, authors);
                 })
-                .collect(Collectors.toList());
+                .orElseThrow(() -> new RuntimeException("Book not found!"));
     }
 
 
