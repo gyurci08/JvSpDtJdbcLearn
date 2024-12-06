@@ -2,11 +2,14 @@ package hu.pte.mik.probazh.service;
 
 import hu.pte.mik.probazh.bean.AuthorDTO;
 import hu.pte.mik.probazh.bean.BookDTO;
+import hu.pte.mik.probazh.bean.BookSaveDTO;
 import hu.pte.mik.probazh.database.AuthorRepository;
 import hu.pte.mik.probazh.database.BookRepository;
 import hu.pte.mik.probazh.entity.Author;
 import hu.pte.mik.probazh.entity.Book;
+import hu.pte.mik.probazh.service.mapping.AuthorMapper;
 import hu.pte.mik.probazh.service.mapping.BookMapper;
+import hu.pte.mik.probazh.service.mapping.BookSaveRequestMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,7 +24,8 @@ public class BookService {
     private final BookRepository bookRepository;
     private final AuthorRepository authorRepository;
     private final BookMapper bookMapper;
-
+    private final AuthorMapper authorMapper;
+    private final BookSaveRequestMapper bookSaveRequestMapper;
 
     private List<AuthorDTO> mapAuthors(Book book) {
         return book.getAuthors().stream()
@@ -32,6 +36,27 @@ public class BookService {
                 })
                 .collect(Collectors.toList());
     }
+
+//    private List<AuthorDTO> mapAuthors(List<Long> authorIds) {
+//        authorIds.stream().map(id -> {
+//            authorRepository.findById(id);
+//        }).collect(Collectors.toList());
+//        return null;
+//    }
+    private List<AuthorDTO> mapAuthors(List<Long> authorIds) {
+        return authorIds.stream()
+                .map(id -> authorRepository.findById(id)
+                        .map(author -> new AuthorDTO(author.getId(), author.getName())) // Convert Author to AuthorDTO
+                        .orElseThrow(() -> new RuntimeException(String.format("Author not found with id: %d", id))))
+                .collect(Collectors.toList()); // Collect the mapped authors into a list
+    }
+
+
+
+
+
+
+
 
 
     public List<BookDTO> listAllBooks() {
@@ -52,6 +77,13 @@ public class BookService {
                     return bookMapper.toDTO(book, authors);
                 })
                 .orElseThrow(() -> new RuntimeException("Book not found!"));
+    }
+
+
+    public BookDTO saveBook(BookSaveDTO bookSaveDTO){
+        var book = bookSaveRequestMapper.toEntity(bookSaveDTO);
+        List<AuthorDTO> authors = mapAuthors(bookSaveDTO.authorIds());
+        return bookMapper.toDTO(book,authors);
     }
 
 
