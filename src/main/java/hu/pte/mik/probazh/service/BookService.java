@@ -1,6 +1,8 @@
 package hu.pte.mik.probazh.service;
 
+
 import hu.pte.mik.probazh.bean.BookDTO;
+import hu.pte.mik.probazh.database.AuthorRepository;
 import hu.pte.mik.probazh.database.BookRepository;
 import hu.pte.mik.probazh.service.mapping.BookMapper;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +16,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookService {
     private final BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
     private final BookMapper bookMapper;
 
 
     public List<BookDTO> getBooksWithAuthors() {
-        return bookMapper.toDTOs(bookRepository.findAllBooksWithAuthors());
+        return bookMapper.toDTOs(bookRepository.findAll());
     }
+
 
 }
