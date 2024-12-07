@@ -2,9 +2,10 @@ package hu.pte.mik.probazh.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.annotation.Transient;
 
-import java.util.Set;
+import java.util.List;
+
 
 @Data
 public class Book {
@@ -13,7 +14,6 @@ public class Book {
     private String title;
     private String isbn;
 
-    //private List<Author> authors;
-    @MappedCollection(idColumn = "book_id", keyColumn = "author_id")
-    private Set<BookAuthor> authors;
+    @Transient
+    private List<Author> authors;
 }

@@ -1,5 +1,5 @@
-### POST request to the example server
-POST http://localhost:8888/api/book
+### PUT request to the example server
+PUT http://localhost:8888/api/book
 Content-Type: application/json
 
 {
