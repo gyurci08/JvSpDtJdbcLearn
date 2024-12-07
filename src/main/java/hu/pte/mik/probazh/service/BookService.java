@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -21,7 +22,12 @@ public class BookService {
 
 
     public List<BookDTO> getBooksWithAuthors() {
-        return bookMapper.toDTOs(bookRepository.findAll());
+        return bookMapper.toDTOs(bookRepository.findAll().stream()
+                .map(book->{
+                    var authors = authorRepository.findAuthorsByBookId(book.getId());
+                    book.setAuthors(authors);
+                    return book;
+                }).collect(Collectors.toList()));
     }
 
 
