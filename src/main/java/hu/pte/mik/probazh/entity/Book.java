@@ -2,7 +2,7 @@ package hu.pte.mik.probazh.entity;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.MappedCollection;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class Book {
     private String title;
     private String isbn;
 
-    @MappedCollection(idColumn = "id", keyColumn = "id")
+    @Transient
     private List<Author> authors;
 }
 

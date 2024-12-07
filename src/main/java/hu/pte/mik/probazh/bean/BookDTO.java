@@ -1,5 +1,7 @@
 package hu.pte.mik.probazh.bean;
 
+import hu.pte.mik.probazh.entity.Author;
+
 import java.util.List;
 
 public record BookDTO(
