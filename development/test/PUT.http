@@ -1,0 +1,10 @@
+### POST request to the example server
+PUT http://localhost:8888/api/book/21
+Content-Type: application/json
+
+{
+ "title":"asd",
+ "isbn":"122-0133644991",
+ "authorIds":[3]
+ }
+

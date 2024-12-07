@@ -7,6 +7,7 @@ import hu.pte.mik.probazh.entity.Author;
 import hu.pte.mik.probazh.entity.Book;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
 
 import java.util.List;
@@ -34,4 +35,10 @@ public interface BookSaveRequestMapper extends GenericMapper<Book, BookSaveDTO> 
 
     @Mapping(target = "id", ignore = true)      // Will be created by database
     Book toEntity(BookSaveDTO response, List<Author> authors);
+
+
+    @Mapping(target = "authors", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    void mapToTarget(@MappingTarget Book target, BookSaveDTO source);
+
 }

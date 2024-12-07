@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 import java.util.List;
@@ -33,6 +35,24 @@ public class BookService {
         return book;
     }
 
+    @Transactional
+    protected void modifyBookAuthorRelation(Long bookId, Long authorId) {
+        if (bookRepository.isBookAuthorExists(bookId, authorId))
+        {
+            bookRepository.deleteBookAuthorRelation(bookId, authorId);
+        }
+        else
+        {
+            bookRepository.insertBookAuthorRelation(bookId, authorId);
+        }
+    }
+
+
+
+
+
+
+
 
     public List<BookDTO> getBooksWithAuthors() {
         return bookMapper.toDTOs(bookRepository.findAll().stream()
@@ -45,22 +65,47 @@ public class BookService {
     }
 
     @Transactional
-    public BookDTO saveBook( BookSaveDTO response) {
-        List<Author> authors = response.authorIds().stream()
+    public BookDTO saveBook( BookSaveDTO request) {
+        List<Author> authors = request.authorIds().stream()
                 .map(authorRepository::findById)
                 .flatMap(Optional::stream)
                 .toList();
 
-        Book book = bookRepository.save(bookSaveRequestMapper.toEntity(response, authors));
+        var book = bookRepository.save(bookSaveRequestMapper.toEntity(request, authors));
 
-        authors.forEach(author -> bookRepository.insertBookAuthorRelation(book.getId(), author.getId()));
+        authors.forEach(author ->modifyBookAuthorRelation(book.getId(), author.getId()));
 
         return bookMapper.toDTO(book);
     }
 
+    // TODO: Should better handle removing author relation
+    @Transactional
+    public BookDTO editBook(Long id, BookSaveDTO request){
+        List<Author> authors = request.authorIds().stream()
+                .map(authorRepository::findById)
+                .flatMap(Optional::stream)
+                .toList();
 
 
 
+        var book = bookMapper.toEntity(getBook(id));
+        var oldAuthors = book.getAuthors();
+
+        bookSaveRequestMapper.mapToTarget(book, request);
+        book = bookRepository.save(book);
+
+        var newAuthors = book.getAuthors();
+
+        List<Author> difference = oldAuthors.stream()
+                .filter(element -> !newAuthors.contains(element))
+                .toList();
+
+        Book finalBook = book;
+
+        difference.forEach(author -> modifyBookAuthorRelation(finalBook.getId(), author.getId()));
+
+        return bookMapper.toDTO(book);
+    }
 
 
 

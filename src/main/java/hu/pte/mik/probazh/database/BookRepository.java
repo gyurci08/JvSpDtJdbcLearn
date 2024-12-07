@@ -18,7 +18,25 @@ public interface BookRepository extends ListCrudRepository<Book, Long> {
     """)
     List<Book> findBooksByAuthorId(Long authorId);
 
+
+
+    @Query("""
+        SELECT COUNT(*) > 0 AS isExist FROM book_author WHERE book_id = :bookId AND author_id = :authorId
+    """)
+    Boolean isBookAuthorExists(Long bookId, Long authorId);
+
+
+
+
     @Modifying
     @Query("INSERT INTO book_author (book_id, author_id) VALUES (:bookId, :authorId)")
-    Long insertBookAuthorRelation(Long bookId, Long authorId);
+    void insertBookAuthorRelation(Long bookId, Long authorId);
+
+
+
+
+    @Modifying
+    @Query("DELETE FROM book_author WHERE book_id = :bookId AND author_id = :authorId")
+    void deleteBookAuthorRelation(Long bookId, Long authorId);
+
 }
