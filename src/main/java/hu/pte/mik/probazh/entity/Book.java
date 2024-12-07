@@ -15,7 +15,7 @@ public class Book {
     private String title;
     private String isbn;
 
-    @MappedCollection(idColumn = "book_id")
+    @MappedCollection(idColumn = "id", keyColumn = "id")
     private List<Author> authors;
 }
 
