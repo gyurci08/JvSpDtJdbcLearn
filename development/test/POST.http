@@ -3,8 +3,8 @@ POST http://localhost:8888/api/book
 Content-Type: application/json
 
 {
- "title":"asd",
+ "title":"test3",
  "isbn":"128-0133644991",
- "authorIds":[1]
+ "authorIds":[1,2,3,4,5]
  }
 

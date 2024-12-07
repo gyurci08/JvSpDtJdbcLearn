@@ -1,6 +1,7 @@
 package hu.pte.mik.probazh.database;
 
 import hu.pte.mik.probazh.entity.Book;
+import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.ListCrudRepository;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,7 @@ public interface BookRepository extends ListCrudRepository<Book, Long> {
     """)
     List<Book> findBooksByAuthorId(Long authorId);
 
+    @Modifying
+    @Query("INSERT INTO book_author (book_id, author_id) VALUES (:bookId, :authorId)")
+    Long insertBookAuthorRelation(Long bookId, Long authorId);
 }

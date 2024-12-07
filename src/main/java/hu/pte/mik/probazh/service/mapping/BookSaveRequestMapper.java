@@ -21,16 +21,17 @@ public interface BookSaveRequestMapper extends GenericMapper<Book, BookSaveDTO> 
     BookSaveDTO toDTO(Book entity);
 
     @Named("mapToLong")
-    default List<Long> map(List<Author> value) {
+    default List<Long> mapToLong(List<Author> value) {
         return value.stream()
                 .map(Author::getId)
                 .collect(Collectors.toList());
     }
 
-    @Mapping(target = "id", ignore = true) // Will be created by database
+    @Mapping(target = "id", ignore = true)      // Will be created by database
     @Mapping(target = "authors", ignore = true) // , source = "authorIds"
     @Override
     Book toEntity(BookSaveDTO dto);
 
-
+    @Mapping(target = "id", ignore = true)      // Will be created by database
+    Book toEntity(BookSaveDTO response, List<Author> authors);
 }
