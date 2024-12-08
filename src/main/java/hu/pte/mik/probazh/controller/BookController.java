@@ -32,11 +32,11 @@ public class BookController {
         return bookService.loadBook(id);
     }
 
-//    @PostMapping
-//    @Operation(summary = "Save Book", description = "Save Book")
-//    public BookDTO create(@RequestBody BookSaveDTO dto){
-//        return bookService.create(dto);
-//    }
+    @PostMapping
+    @Operation(summary = "Save Book", description = "Save Book")
+    public BookDTO create(@RequestBody BookSaveDTO dto){
+        return bookService.create(dto);
+    }
 
 
 //    @PutMapping("/{id}")

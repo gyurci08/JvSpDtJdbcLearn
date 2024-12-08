@@ -10,9 +10,13 @@ spring:
 logging:
   level:
     org:
-      springframework:
-        jdbc:
-          core: debug
+      hibernate:
+        SQL: debug
+        type:
+          descriptor:
+            sql:
+              BasicBinder: trace
+
     hu:
       pte:
         mik: debug

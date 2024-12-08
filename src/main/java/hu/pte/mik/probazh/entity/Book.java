@@ -9,6 +9,7 @@ import java.util.List;
 @Data
 @Entity
 public class Book {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long id;
     private String title;

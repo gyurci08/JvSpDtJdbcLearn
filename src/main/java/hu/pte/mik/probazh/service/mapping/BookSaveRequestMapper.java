@@ -9,14 +9,13 @@ import org.mapstruct.MappingTarget;
 @Mapper(config = MappingConfig.class, uses = {AuthorMapper.class})
 public interface BookSaveRequestMapper extends EntityMapper<Book, BookSaveDTO>{
 
-    @Mapping(target = "id", ignore = true)      // Will be created by database
-    @Mapping(target = "authors", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "authors", source = "authorIds")
     @Override
     Book toEntity(BookSaveDTO dto);
 
-
-    @Mapping(target = "authors", ignore = true)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "authors", source = "authorIds")
     void mapToTarget(@MappingTarget Book target, BookSaveDTO source);
 
 }
