@@ -20,3 +20,4 @@ logging:
 
 server:
   port: 8888
+

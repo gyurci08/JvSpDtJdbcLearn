@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
+
+<head th:fragment="head">
+    <title th:text="#{|title.${title}|}"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <link rel="stylesheet" type="text/css" media="all" th:href="@{/css/web-thymeleaf.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+<nav th:fragment="header" class="navbar">
+    <a href="/books" class="navbar-brand" th:text="#{menu.appname}">MyApp</a>
+
+    <div class="navbar-menu">
+        <a th:text="#{menu.books}" th:href="@{/books}" class="navbar-item">Books</a>
+    </div>
+
+</nav>
+
+</body>
+</html>
