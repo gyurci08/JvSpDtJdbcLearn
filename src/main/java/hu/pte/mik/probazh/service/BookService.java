@@ -21,19 +21,5 @@ public class BookService {
     private final AuthorRepository authorRepository;
     private final BookMapper bookMapper;
 
-    public List<BookDTO> listAllBooks() {
-        return bookRepository.findAll()
-                .stream()
-                .map(book -> {
-                    List<AuthorDTO> authors = book.getAuthors().stream()
-                            .map(ba -> {
-                                Author author = authorRepository.findById(ba.getAuthorId())
-                                        .orElseThrow(() -> new RuntimeException("Author not found!"));
-                                return new AuthorDTO(author.getId(), author.getName());
-                            })
-                            .collect(Collectors.toList());
-                    return bookMapper.toDTO(book, authors);
-                })
-                .collect(Collectors.toList());
-    }
+
 }
