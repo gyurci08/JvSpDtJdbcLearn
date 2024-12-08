@@ -1,10 +1,10 @@
 ### PUT request to the example server
-PUT http://localhost:8888/api/book/12
+PUT http://localhost:8888/api/book/21
 Content-Type: application/json
 
 {
-  "title": "asd",
-  "isbn": "978-1617292545",
-  "authorIds": [1]
+  "title": "tz",
+  "isbn": "278-1617292545",
+  "authorIds": [2]
 }
 

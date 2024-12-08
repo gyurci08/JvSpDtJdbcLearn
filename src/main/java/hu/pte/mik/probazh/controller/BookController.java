@@ -39,14 +39,17 @@ public class BookController {
     }
 
 
-//    @PutMapping("/{id}")
-//    @Operation(summary = "Edit Book", description = "Edit Book")
-//    public BookDTO edit(@PathVariable Long id, @RequestBody BookSaveDTO dto){
-//        return bookService.edit(id,dto);
-//    }
-//    @DeleteMapping("/{id}")
-//    public void delete(@PathVariable Long id){
-//        bookService.delete(id);
-//    }
+    @PutMapping("/{id}")
+    @Operation(summary = "Edit Book", description = "Edit Book")
+    public BookDTO edit(@PathVariable Long id, @RequestBody BookSaveDTO dto){
+        return bookService.edit(id,dto);
+    }
+
+
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        bookService.delete(id);
+    }
 
 }
