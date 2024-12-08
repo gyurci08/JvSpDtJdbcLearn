@@ -1,9 +1,11 @@
 package hu.pte.mik.probazh.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 
 @Data
+@Entity
 public class Author {
     @Id
     private Long id;
