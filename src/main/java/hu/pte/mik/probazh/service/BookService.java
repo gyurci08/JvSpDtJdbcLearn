@@ -40,7 +40,12 @@ public class BookService {
     }
 
 
-    //	public BookDTO loadBook(Long id)
+    public BookDTO loadBook(Long id){
+        return bookMapper.toDto(bookRepository.findById(id).map(this::mapAuthorsToBook).orElse(null));
+    }
+
+
+
     //	public BookDTO create(BookSaveDTO dto)
     //	public BookDTO edit(Long id, BookSaveDTO dto)
     //	public void delete(Long id)

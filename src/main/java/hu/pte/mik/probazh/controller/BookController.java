@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,7 +26,17 @@ public class BookController {
     public List<BookDTO> listAllBooks(){
         return bookService.listAllBooks();
     }
-//    public BookDTO loadBook(Long id)
+
+    @GetMapping("/{id}")
+    @Operation(summary = "Get Books", description = "Get all Books")
+    public BookDTO loadBook(@PathVariable Long id){
+        return bookService.loadBook(id);
+    }
+
+
+
+
+
 //    public BookDTO create(BookSaveDTO dto)
 //    public BookDTO edit(Long id, BookSaveDTO dto)
 //    public void delete(Long id)
