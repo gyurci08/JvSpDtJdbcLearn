@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+// openAPI: /swagger-ui.html
 @RestController
 @RequestMapping(value = "/api/book", produces = MediaType.APPLICATION_JSON_VALUE)
 @ApiResponse(responseCode = "200", description = "Successful request")
@@ -41,7 +42,10 @@ public class BookController {
     public BookDTO edit(@PathVariable Long id, @RequestBody BookSaveDTO dto){
         return bookService.edit(id,dto);
     }
-//    public void delete(Long id)
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        bookService.delete(id);
+    }
 
 
 }

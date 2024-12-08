@@ -69,7 +69,7 @@ public class BookService {
     }
 
 
-
+    // TODO: Diff?
     public BookDTO edit(Long id, BookSaveDTO dto){
         Book book = bookMapper.toEntity(loadBook(id));
         bookSaveRequestMapper.mapToTarget(book, dto);
@@ -80,7 +80,11 @@ public class BookService {
         return loadBook(book.getId());
     }
 
-    //	public void delete(Long id)
+    	public void delete(Long id){
+            Book book = bookMapper.toEntity(loadBook(id));
+            bookAuthorRepository.deleteAllByBookId(book.getId());
+            bookRepository.delete(book);
+        }
 
 
 }
