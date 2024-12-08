@@ -52,12 +52,19 @@ public class BookService {
 
     public List<BookDTO> listAllBooks(){
 
-        return bookMapper.toDto(bookRepository.findAll().stream().map(this::mapAuthorsToBook).toList());
+        return bookRepository.findAll()
+                .stream()
+                .map(this::mapAuthorsToBook)
+                .map(bookMapper::toDto)
+                .toList();
     }
 
 
     public BookDTO loadBook(Long id){
-        return bookMapper.toDto(bookRepository.findById(id).map(this::mapAuthorsToBook).orElse(null));
+        return bookRepository.findById(id)
+                .map(this::mapAuthorsToBook)
+                .map(bookMapper::toDto)
+                .orElse(null);
     }
 
 
